@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "759383008634",
+    "project_id": "prep-app-007",
+    "storage_bucket": "prep-app-007.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759383008634:android:dc3bd886c3bdb57acce2c3",
+        "android_client_info": {
+          "package_name": "com.prep.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "759383008634-onq45c51at3i6gg4ie1gcv0ou7609oa9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFNiDTEJamrNI7iTFn2ZZa6WFt8txS1So"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "759383008634-onq45c51at3i6gg4ie1gcv0ou7609oa9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

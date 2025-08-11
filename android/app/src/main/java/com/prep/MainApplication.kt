@@ -1,4 +1,4 @@
-package com.prep
+package com.prep.app
 
 import android.app.Application
 import com.facebook.react.PackageList
@@ -35,4 +35,4 @@ class MainApplication : Application(), ReactApplication {
     super.onCreate()
     loadReactNative(this)
   }
-}
+} 

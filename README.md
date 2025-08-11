@@ -1,97 +1,193 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Prep - Study Companion App
 
-# Getting Started
+A comprehensive React Native study app with Firebase backend, featuring study timers, resource management, and dark mode support.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
 
-## Step 1: Start Metro
+- 🔐 **Firebase Authentication** - Secure login/signup
+- 📚 **Resource Management** - Add, organize, and manage study materials
+- ⏱️ **Study Timer** - Pomodoro-style study sessions with breaks
+- 🌙 **Dark Mode** - Complete dark mode support
+- 📱 **Cross Platform** - Works on both iOS and Android
+- 🔄 **State Management** - Redux Toolkit + Zustand + React Query
+- 🎨 **Modern UI** - Tailwind CSS styling with NativeWind
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Tech Stack
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- **Frontend**: React Native
+- **State Management**: Redux Toolkit, Zustand, React Query
+- **Backend**: Firebase (Auth, Firestore, Storage)
+- **Styling**: TailwindCSS with NativeWind
+- **Navigation**: React Navigation
+- **Icons**: React Native Vector Icons
 
-```sh
-# Using npm
-npm start
+## Prerequisites
 
-# OR using Yarn
-yarn start
+- Node.js (v18 or higher)
+- React Native CLI
+- Android Studio (for Android development)
+- Xcode (for iOS development, macOS only)
+- Firebase project
+
+## Setup Instructions
+
+### 1. Install Dependencies
+
+```bash
+cd prep
+npm install
 ```
 
-## Step 2: Build and run your app
+### 2. Firebase Configuration
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+2. Enable Authentication (Email/Password)
+3. Create a Firestore database
+4. Enable Storage
+5. Get your Firebase config and update `src/config/firebase.ts`:
 
-### Android
+```typescript
+const firebaseConfig = {
+  apiKey: "your-api-key",
+  authDomain: "your-project.firebaseapp.com",
+  projectId: "your-project-id",
+  storageBucket: "your-project.appspot.com",
+  messagingSenderId: "your-sender-id",
+  appId: "your-app-id"
+};
+```
 
-```sh
-# Using npm
+### 3. iOS Setup (macOS only)
+
+```bash
+cd ios
+pod install
+cd ..
+```
+
+### 4. Android Setup
+
+Make sure you have Android Studio installed and configured with:
+- Android SDK
+- Android SDK Platform-Tools
+- Android Emulator or physical device
+
+### 5. Run the App
+
+#### Android
+```bash
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+#### iOS (macOS only)
+```bash
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## Project Structure
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+```
+src/
+├── config/
+│   └── firebase.ts          # Firebase configuration
+├── navigation/
+│   └── AppNavigator.tsx     # Main navigation setup
+├── screens/
+│   ├── auth/
+│   │   ├── LoginScreen.tsx
+│   │   └── SignUpScreen.tsx
+│   ├── HomeScreen.tsx
+│   ├── ResourcesScreen.tsx
+│   ├── StudyScreen.tsx
+│   └── ProfileScreen.tsx
+├── store/
+│   ├── index.ts             # Redux store configuration
+│   ├── slices/
+│   │   ├── authSlice.ts
+│   │   ├── uiSlice.ts
+│   │   └── resourcesSlice.ts
+│   └── zustandStore.ts      # Zustand store
+└── components/              # Reusable components
+```
 
-## Step 3: Modify your app
+## Key Features
 
-Now that you have successfully run the app, let's make changes!
+### Authentication
+- Email/password authentication
+- Secure user sessions
+- Automatic login state management
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+### Study Timer
+- Customizable study session duration
+- Break timer with notifications
+- Session tracking and statistics
+- Skip/pause/reset functionality
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+### Resource Management
+- Add different types of resources (PDF, Notes, Videos, Links)
+- Filter and search resources
+- Delete and manage resources
+- Firebase Storage integration for file uploads
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+### Dark Mode
+- System-based dark mode detection
+- Manual toggle in settings
+- Consistent theming across all screens
 
-## Congratulations! :tada:
+### State Management
+- **Redux Toolkit**: Authentication and resources
+- **Zustand**: UI preferences and local settings
+- **React Query**: Server state management and caching
 
-You've successfully run and modified your React Native App. :partying_face:
+## Available Scripts
 
-### Now what?
+- `npm start` - Start Metro bundler
+- `npm run android` - Run on Android
+- `npm run ios` - Run on iOS
+- `npm test` - Run tests
+- `npm run lint` - Run ESLint
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+## Troubleshooting
 
-# Troubleshooting
+### Common Issues
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+1. **Metro bundler issues**
+   ```bash
+   npx react-native start --reset-cache
+   ```
 
-# Learn More
+2. **Android build issues**
+   ```bash
+   cd android
+   ./gradlew clean
+   cd ..
+   ```
 
-To learn more about React Native, take a look at the following resources:
+3. **iOS build issues**
+   ```bash
+   cd ios
+   pod deintegrate
+   pod install
+   cd ..
+   ```
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+4. **Firebase configuration issues**
+   - Ensure all Firebase services are enabled
+   - Check that your config is correctly added to `src/config/firebase.ts`
+   - Verify Firestore rules allow read/write for authenticated users
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Support
+
+For support, please open an issue on GitHub or contact the development team.
