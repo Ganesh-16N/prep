@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { theme } from '../utils/theme';
-import chatGPTService from '../services/chatgptService';
+import geminiService from '../services/geminiService';
 
 interface ExplanationModalProps {
   isVisible: boolean;
@@ -44,7 +44,7 @@ const ExplanationModal: React.FC<ExplanationModalProps> = ({
     setExplanation('');
 
     try {
-      const result = await chatGPTService.getExplanation(query, context);
+      const result = await geminiService.getExplanation(query, context);
       
       if (result.error) {
         setError(result.error);
@@ -79,11 +79,11 @@ const ExplanationModal: React.FC<ExplanationModalProps> = ({
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerContent}>
-            <Icon name="psychology" size={24} color={theme.colors.primary} />
+            <Icon name="psychology" size={24} color="#60A5FA" />
             <Text style={styles.headerTitle}>AI Explanation</Text>
           </View>
           <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-            <Icon name="close" size={24} color={theme.colors.textSecondary} />
+            <Icon name="close" size={24} color="#9CA3AF" />
           </TouchableOpacity>
         </View>
 
@@ -108,14 +108,14 @@ const ExplanationModal: React.FC<ExplanationModalProps> = ({
             
             {loading && (
               <View style={styles.loadingContainer}>
-                <ActivityIndicator size="large" color={theme.colors.primary} />
-                <Text style={styles.loadingText}>Getting explanation...</Text>
+                <ActivityIndicator size="large" color="#60A5FA" />
+                <Text style={styles.loadingText}>🤖 Generating comprehensive guide...</Text>
               </View>
             )}
 
             {error && (
               <View style={styles.errorContainer}>
-                <Icon name="error" size={24} color={theme.colors.error} />
+                <Icon name="error" size={24} color="#F87171" />
                 <Text style={styles.errorText}>{error}</Text>
                 <TouchableOpacity style={styles.retryButton} onPress={handleRetry}>
                   <Text style={styles.retryButtonText}>Try Again</Text>
@@ -130,23 +130,14 @@ const ExplanationModal: React.FC<ExplanationModalProps> = ({
                   style={styles.copyButton} 
                   onPress={handleCopyExplanation}
                 >
-                  <Icon name="content-copy" size={16} color={theme.colors.primary} />
+                  <Icon name="content-copy" size={16} color="#60A5FA" />
                   <Text style={styles.copyButtonText}>Copy</Text>
                 </TouchableOpacity>
               </View>
             )}
           </View>
 
-          {/* Tips Section */}
-          <View style={styles.tipsSection}>
-            <Text style={styles.tipsLabel}>💡 Tips:</Text>
-            <View style={styles.tipsList}>
-              <Text style={styles.tipText}>• Practice implementing this concept</Text>
-              <Text style={styles.tipText}>• Read official documentation</Text>
-              <Text style={styles.tipText}>• Try building a small project</Text>
-              <Text style={styles.tipText}>• Discuss with peers or mentors</Text>
-            </View>
-          </View>
+        
         </ScrollView>
 
         {/* Footer */}
@@ -163,16 +154,17 @@ const ExplanationModal: React.FC<ExplanationModalProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: '#0A0A0A',
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: theme.spacing.lg,
-    paddingVertical: theme.spacing.md,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
+    borderBottomColor: '#1F1F1F',
+    backgroundColor: '#0A0A0A',
   },
   headerContent: {
     flexDirection: 'row',
@@ -180,114 +172,129 @@ const styles = StyleSheet.create({
     gap: theme.spacing.sm,
   },
   headerTitle: {
-    fontSize: theme.typography.h3.fontSize,
-    fontWeight: theme.typography.h3.fontWeight,
-    color: theme.colors.textPrimary,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#FFFFFF',
   },
   closeButton: {
     padding: theme.spacing.xs,
   },
   content: {
     flex: 1,
-    paddingHorizontal: theme.spacing.lg,
+    paddingHorizontal: 20,
   },
   querySection: {
-    marginTop: theme.spacing.lg,
-    marginBottom: theme.spacing.lg,
+    marginTop: 24,
+    marginBottom: 24,
   },
   queryLabel: {
-    fontSize: theme.typography.caption.fontSize,
-    color: theme.colors.textSecondary,
+    fontSize: 14,
+    color: '#9CA3AF',
     marginBottom: theme.spacing.sm,
+    fontWeight: '500',
   },
   queryCard: {
-    backgroundColor: theme.colors.card,
-    borderRadius: theme.borderRadius.lg,
-    padding: theme.spacing.md,
-    borderLeftWidth: 4,
-    borderLeftColor: theme.colors.primary,
+    backgroundColor: '#1A1A1A',
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#2D2D2D',
   },
   queryText: {
-    fontSize: theme.typography.body.fontSize,
-    color: theme.colors.textPrimary,
-    fontWeight: '500',
+    fontSize: 16,
+    color: '#FFFFFF',
+    fontWeight: '600',
+    lineHeight: 24,
   },
   contextBadge: {
     alignSelf: 'flex-start',
-    backgroundColor: theme.colors.primary + '20',
-    paddingHorizontal: theme.spacing.sm,
-    paddingVertical: theme.spacing.xs,
-    borderRadius: theme.borderRadius.sm,
-    marginTop: theme.spacing.sm,
+    backgroundColor: '#1E3A8A',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+    marginTop: 12,
   },
   contextText: {
-    fontSize: theme.typography.small.fontSize,
-    color: theme.colors.primary,
-    fontWeight: '500',
+    fontSize: 14,
+    color: '#60A5FA',
+    fontWeight: '600',
   },
   explanationSection: {
-    marginBottom: theme.spacing.lg,
+    marginBottom: 24,
   },
   explanationLabel: {
-    fontSize: theme.typography.caption.fontSize,
-    color: theme.colors.textSecondary,
+    fontSize: 14,
+    color: '#9CA3AF',
     marginBottom: theme.spacing.sm,
+    fontWeight: '500',
   },
   loadingContainer: {
     alignItems: 'center',
-    paddingVertical: theme.spacing.xl,
+    paddingVertical: 32,
   },
   loadingText: {
-    fontSize: theme.typography.body.fontSize,
-    color: theme.colors.textSecondary,
+    fontSize: 16,
+    color: '#9CA3AF',
     marginTop: theme.spacing.sm,
+    textAlign: 'center',
+    fontWeight: '400',
   },
   errorContainer: {
     alignItems: 'center',
-    paddingVertical: theme.spacing.lg,
+    paddingVertical: 24,
   },
   errorText: {
-    fontSize: theme.typography.body.fontSize,
-    color: theme.colors.error,
+    fontSize: 16,
+    color: '#F87171',
     textAlign: 'center',
     marginTop: theme.spacing.sm,
     marginBottom: theme.spacing.md,
+    fontWeight: '400',
   },
   retryButton: {
-    backgroundColor: theme.colors.primary,
-    paddingHorizontal: theme.spacing.lg,
-    paddingVertical: theme.spacing.sm,
-    borderRadius: theme.borderRadius.md,
+    backgroundColor: '#2563EB',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 8,
   },
   retryButtonText: {
     color: theme.colors.white,
-    fontSize: theme.typography.caption.fontSize,
+    fontSize: 14,
     fontWeight: '600',
   },
   explanationCard: {
-    backgroundColor: theme.colors.card,
-    borderRadius: theme.borderRadius.lg,
-    padding: theme.spacing.md,
+    backgroundColor: '#1A1A1A',
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#2D2D2D',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 3,
   },
   explanationText: {
-    fontSize: theme.typography.body.fontSize,
-    color: theme.colors.textPrimary,
-    lineHeight: 24,
+    fontSize: 16,
+    color: '#E5E7EB',
+    lineHeight: 28,
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    fontWeight: '400',
   },
   copyButton: {
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'flex-end',
-    marginTop: theme.spacing.md,
-    paddingHorizontal: theme.spacing.sm,
-    paddingVertical: theme.spacing.xs,
-    backgroundColor: theme.colors.surface,
-    borderRadius: theme.borderRadius.sm,
-    gap: theme.spacing.xs,
+    marginTop: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    backgroundColor: '#2D2D2D',
+    borderRadius: 8,
+    gap: 8,
   },
   copyButtonText: {
-    fontSize: theme.typography.small.fontSize,
-    color: theme.colors.primary,
+    fontSize: 14,
+    color: '#60A5FA',
     fontWeight: '500',
   },
   tipsSection: {
@@ -309,20 +316,21 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.xs,
   },
   footer: {
-    paddingHorizontal: theme.spacing.lg,
-    paddingVertical: theme.spacing.md,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
     borderTopWidth: 1,
-    borderTopColor: theme.colors.border,
+    borderTopColor: '#1F1F1F',
+    backgroundColor: '#0A0A0A',
   },
   footerButton: {
-    backgroundColor: theme.colors.primary,
-    paddingVertical: theme.spacing.md,
-    borderRadius: theme.borderRadius.lg,
+    backgroundColor: '#1b1c1c',
+    paddingVertical: 16,
+    borderRadius: 12,
     alignItems: 'center',
   },
   footerButtonText: {
     color: theme.colors.white,
-    fontSize: theme.typography.body.fontSize,
+    fontSize: 16,
     fontWeight: '600',
   },
 });

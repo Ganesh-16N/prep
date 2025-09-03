@@ -13,6 +13,14 @@ import { Provider } from 'react-redux';
 import { store } from './src/redux/store';
 import AppNavigator from './src/navigation/AppNavigator';
 
+// Gemini API Configuration
+// ✅ API Key is configured in geminiService.ts
+// To enable AI explanations, set your Gemini API key here:
+// import geminiService from './src/services/geminiService';
+// geminiService.setApiKey('your_gemini_api_key_here');
+// 
+// Or set the GEMINI_API_KEY environment variable in your .env file
+
 const App = () => {
   return (
     <Provider store={store}>
