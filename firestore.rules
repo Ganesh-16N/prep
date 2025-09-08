@@ -1,0 +1,37 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow public read access to tasks collection (shared learning content)
+    match /tasks/{taskId} {
+      allow read: if true; // Public read access for learning tasks
+      allow write: if request.auth != null; // Only authenticated users can write
+    }
+    
+    // Allow public read/write access to test collection for connection testing
+    match /test/{document} {
+      allow read, write: if true;
+    }
+    
+    // User collection rules - only authenticated users can access their own data
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Resource collection rules - public read, authenticated write
+    match /resources/{resourceId} {
+      allow read: if true; // Public read access for learning resources
+      allow write: if request.auth != null; // Only authenticated users can write
+    }
+    
+    // User-specific task progress (if you add this later)
+    match /userTasks/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // User-specific resource progress (if you add this later)
+    match /userResources/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
